@@ -1,0 +1,29 @@
+{% extends 'files/main.html' %}{% load static %}
+ {% block content %}
+
+{% for live in lives %}
+
+  <div class="col mb-4">
+       <div class="card">
+   <div class="box-element product">
+      <div class="card-body">
+        <h5 class="card-title">
+        {{live.professeur}}</h5>
+       
+  <p>{{live.matiére}}</p>
+
+  <p>{{live.cour}}</p>
+  <p>{{live.partie}}</p>
+      </div>
+    </div>
+  <video style="width:100%;height:auto"  controls>
+  <source  src="{{live.docFILE3}}" type="video/mp4">
+  <source src="{{live.docFILE3}}" type="video/ogg">
+</video>
+<br>
+   <a href="{{live.docFILE3}}"download><button class="btn btn-primary">Download</button></a>
+  </div>  
+</div>
+  {% endfor %}
+
+{% endblock %}
