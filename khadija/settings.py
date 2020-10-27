@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
-import django_heroku
+import django_jazzmin
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,67 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'gso5fc6^ps3wkk2re^ann3r2v!psc*_-uc%u-f2rd^-rv)#24_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
-JAZZMIN_SETTINGS = {
-  "site_title": "2BAC-PC-F-A-2",
-  "site_header": "2BAC-PC-F-A-2",
-  "site_logo": "docs/jjj.jpg",
-  "welcome_sign": "Welcome to the 2BAC-PC-F-A-2 !!!Only for students of khadija oum elmouminine",
-  "copyright" : "Developers United Ltd",
-  "search_model": "auth.User",
-  "user_avatar": None,
-  "topmenu_links": [
+ALLOWED_HOSTS = ['khadija-oum.herokuapp.com','127.0.0.1']
 
-        # Url that gets reversed (Permissions can be added)
-        {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
-
-        # external url that opens in a new window (Permissions can be added)
-        {"name": "Support", "url":"https://developers-united.netlify.app", "new_window":True},
-
-        # model admin to link to (Permissions checked against model)
-        {"model": "auth.User"},
-
-        # App with dropdown menu to all its models pages (Permissions checked against models)
-        {"app": "download"},
-    ],
-   "usermenu_links": [
-        {"name": "Support", "url": "https://developers-united.netlify.app", "new_window":True},
-        {"model": "auth.user"}
-    ],
-    "show_sidebar": True,
-    "navigation_expanded": True,
-    "hide_apps": [],
-    "hide_models": [],
-    "order_with_respect_to": ["auth", "download", "download.Etudiant", "download.professor"],
-    "icons": {
-        "auth": "fas fa-users-cog",
-        "auth.user": "fas fa-user",
-        "auth.Group": "fas fa-users",
-        "download.professeur":"fas fa-chalkboard-teacher",
-        "download.etudiant":"fas fa-user-graduate",
-        "download.emploi":"fas fa-hourglass-half",
-        "download.classe":"far fa-eye",
-        "download.live_ended":"far fa-eye-slash",
-        "download.cour":"fas fa-book-reader",
-        "download.exercice":"fas fa-book",
-        "download.corrigé":"fas fa-book",
-        "download.matiére":"fas fa-school",
-        "download.heure":"fas fa-hourglass",
-        "download.présence":"fas fa-graduation-cap"
-
-    },
-    "related_modal_active": True,
-    "changeform_format": "horizontal_tabs",
-    "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs",},
-    "language_chooser": False,
-
-}
 
 
 INSTALLED_APPS = [
-    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -101,6 +47,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+      'whitenoise.middleware.WhiteNoiseMiddleware',
+
 ]
 
 ROOT_URLCONF = 'khadija.urls'
@@ -171,6 +119,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
@@ -179,3 +128,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/docs/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/docs')
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_venv)
+STATICFILES_STORAGES = 'whitenoise.django.GzipManifestStaticFilesStorage'
