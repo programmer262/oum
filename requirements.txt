@@ -47,7 +47,7 @@ six==1.15.0
 soupsieve==2.0.1
 sqlparse==0.2.4
 stripe==2.27.0
-urllib3==1.24.2
+urllib3==1.26.5
 virtualenv==20.0.31
 whitenoise==5.2.0
 yarn==0.0.9
